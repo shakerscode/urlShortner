@@ -42,6 +42,8 @@ export default function LinkShortener() {
       setUrl("");
 
       toast.success("Short link created successfully! 🎉");
+
+      //Waiting some time to go next page
       setTimeout(() => {
         router.push("/dashboard/links");
       }, 1000);
