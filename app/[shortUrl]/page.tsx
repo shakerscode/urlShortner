@@ -1,20 +1,25 @@
 import { redirect } from "next/navigation";
 import db from "@/lib/db";
 
-export default async function RedirectPage({
-  params,
-}: {
-  params: { shortUrl: string };
-}) {
+type tParams = Promise<{ shortUrl: string }>;
+
+// ✅ Correctly type the props
+export default async function RedirectPage({ params }: { params: tParams }) {
+  // Get the short URL from params
+  const { shortUrl } = await params;
+
   // Find the original URL in the database
   const link = await db.shortLink.findUnique({
-    where: { shortUrl: params.shortUrl },
+    where: { shortUrl },
   });
 
   // If no short link found, show a 404 page
   if (!link) {
-    redirect("www.google.com");
-    return;
+    return (
+      <h1 className="text-center text-xl font-bold text-red-500 mt-10">
+        404 - Short link not found
+      </h1>
+    );
   }
 
   // Redirect to the destination URL
