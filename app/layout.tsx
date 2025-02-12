@@ -20,10 +20,14 @@ const poppins = localFont({
   variable: "--font-poppins",
 });
 
-
 export const metadata: Metadata = {
   title: "Go Link",
   description: "Your one only url shortener",
+  icons: {
+    icon: "/link-logo.svg",
+    shortcut: "/link-logo.svg",
+    apple: "/link-logo.svg",
+  },
 };
 
 export default function RootLayout({
@@ -39,7 +43,7 @@ export default function RootLayout({
       <body className={`${poppins.variable} antialiased`}>
         <Header />
         <main className="max-w-[1064px] mx-auto">{children}</main>
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );
