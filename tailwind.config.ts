@@ -9,13 +9,15 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        poppins: "var(--font-poppins)", 
+        poppins: "var(--font-poppins)",
       },
       colors: {
         white: "#fffdf8",
         borderColor: "#fffdf8",
         colorDark: "#031f39",
         blue: "#031f39",
+        blue200: "#D6E6FF",
+        blue300: "#A8D1FF",
         sky: "#7dd3fc",
       },
     },

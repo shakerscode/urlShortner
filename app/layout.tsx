@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import "./globals.css"; 
+import { Toaster } from "react-hot-toast";
 
 // Import Poppins fonts
 const poppins = localFont({
@@ -41,9 +40,10 @@ export default function RootLayout({
 
       <head></head>
       <body className={`${poppins.variable} antialiased`}>
-        <Header />
-        <main className="max-w-[1064px] mx-auto">{children}</main>
-        <Footer />
+        {/* <Header /> */}
+        <Toaster position="top-center" reverseOrder={false} />
+        <main>{children}</main>
+        {/* <Footer /> */}
       </body>
     </html>
   );
