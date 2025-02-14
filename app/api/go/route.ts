@@ -44,8 +44,9 @@ export async function POST(req: Request) {
       },
     });
 
+   
     // ✅ Return the generated short URL
-    return NextResponse.json({ shortUrl: shortUrl, destination, newLink });
+    return NextResponse.json({ newLink });
   } catch (error) {
     console.error("Error creating short link:", error);
     return NextResponse.json(

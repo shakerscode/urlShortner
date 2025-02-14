@@ -5,6 +5,7 @@ import db from "@/lib/db";
 import { ILinks } from "@/types/links";
 import { headers } from "next/headers";
 import EditLink from "@/components/editlinks";
+import Link from "next/link";
 
 type tParams = Promise<{ id: string }>;
 
@@ -26,9 +27,18 @@ export default async function EditLinkPage({ params }: { params: tParams }) {
   }
 
   return (
-    <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow mt-10">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">Edit Link</h2>
-      <EditLink baseUrl={baseUrl} link={link} id={id} />
+    <div>
+      {/* Back Button */}
+      <Link
+        href="/dashboard/links"
+        className="text-blue-500 hover:underline text-sm flex items-center ml-10 mt-10"
+      >
+        ← Back to list
+      </Link>
+      <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow mt-10">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Edit Link</h2>
+        <EditLink baseUrl={baseUrl} link={link} id={id} />
+      </div>
     </div>
   );
 }

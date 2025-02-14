@@ -38,15 +38,15 @@ export default function LinkShortener() {
         throw new Error(data.error || "Failed to shorten the link.");
       }
 
-      setShortLink(`${window.location.origin}/go/${data.shortUrl}`);
+      setShortLink(data.shortUrl);
       setUrl("");
 
       toast.success("Short link created successfully! 🎉");
 
       //Waiting some time to go next page
       setTimeout(() => {
-        router.push("/dashboard/links");
-      }, 1000);
+        router.push(`/dashboard/links/${data?.newLink?.id}`);
+      }, 100);
     } catch (err: unknown) {
       if (err instanceof Error) {
         toast.error(err.message);
