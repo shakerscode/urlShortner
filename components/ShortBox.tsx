@@ -129,7 +129,7 @@ export default function LinkShortener() {
             onClick={handleSubmit}
             className="w-full mt-4 bg-blue text-white py-3 rounded-lg text-lg font-semibold hover:bg-opacity-90 transition"
           >
-            {loading ? "Generating..." : "Get your link for free →"}
+            {loading ? "Generating..." : "Generate Url →"}
           </button>
         </div>
       </div>
