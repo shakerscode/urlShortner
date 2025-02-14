@@ -7,7 +7,6 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const links = await db.shortLink.findMany();
-    console.log(links);
     return NextResponse.json(links);
   } catch (error) {
     return NextResponse.json(

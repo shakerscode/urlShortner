@@ -2,38 +2,33 @@
 
 import {
   Home,
-  Link,
-  QrCode,
-  BarChart,
-  Settings,
-  Globe,
-  Layers,
+  Link, 
 } from "lucide-react";
 import LinkLogo from "@/components/icons/linklogo";
 import { usePathname, useRouter } from "next/navigation";
 export const experimental_ppr = true;
 
-
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const router = useRouter();
   const pathname = usePathname();
- 
 
   const menuItems = [
     { name: "Home", icon: <Home size={20} />, to: "/dashboard" },
     { name: "Links", icon: <Link size={20} />, to: "/dashboard/links" },
-    { name: "QR Codes", icon: <QrCode size={20} />, to: "/dashboard/" },
-    { name: "Analytics", icon: <BarChart size={20} />, to: "/dashboard/" },
-    { name: "Campaigns", icon: <Layers size={20} />, to: "/dashboard/" },
-    { name: "Custom domains", icon: <Globe size={20} />, to: "/dashboard/" },
-    { name: "Settings", icon: <Settings size={20} />, to: "/dashboard/" },
   ];
 
   return (
     <div className="flex h-screen bg-slate-100">
       {/* Sidebar */}
       <aside className="w-64 bg-white flex flex-col p-5 fixed left-0 top-0 h-screen shadow-lg">
-        <h2  onClick={() => router.push("/")} className="text-3xl cursor-pointer flex items-center justify-center gap-1 font-bold text-blue text-center">
+        <h2
+          onClick={() => router.push("/")}
+          className="text-3xl cursor-pointer flex items-center justify-center gap-1 font-bold text-blue text-center"
+        >
           <LinkLogo size={34} />
           GoLink
         </h2>
@@ -78,9 +73,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </header>
 
         {/* Main Content (Scrollable) */}
-        <main className="flex-1 p-6 mt-16 overflow-auto">
-          {children}
-        </main>
+        <main className="flex-1 p-6 mt-16 overflow-auto  ">{children}</main>
       </div>
     </div>
   );

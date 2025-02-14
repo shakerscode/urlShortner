@@ -14,4 +14,6 @@ model ShortLink {
   createdBy   String
   locked      Boolean  @default(false)
   createdAt   DateTime @default(now())
+  title       String?  
+  tags        String?   
 }
