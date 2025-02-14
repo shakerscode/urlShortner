@@ -60,6 +60,12 @@ function Header() {
             >
               Sign up free
             </button>
+            <button
+            onClick={()=>router.push("/dashboard/links")}
+              className={`text-md md:text-lg font-semibold text-colorDark bg-white px-4 py-1 rounded-lg hover:bg-sky transition-all ease-in-out duration-300 border-[2px] border-blue`}
+            >
+              All Links
+            </button>
           </div>
         </div>
       </div>

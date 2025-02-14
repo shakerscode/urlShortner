@@ -2,9 +2,10 @@ import { notFound } from "next/navigation";
 import db from "@/lib/db";
 
 import { headers } from "next/headers";
-import EditLink from "@/components/editlinks";
+
 import Link from "next/link";
 import { ILinks } from "@/types/links";
+import EditLink from "@/components/links/editlinks";
 
 type tParams = Promise<{ id: string }>;
 
@@ -33,9 +34,9 @@ export default async function EditLinkPage({ params }: { params: tParams }) {
       >
         ← Back to list
       </Link>
-      <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow mt-10">
+      <div className="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow mt-10">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Edit Link</h2>
-        <EditLink baseUrl={baseUrl} link={link as ILinks} id={id} />
+        <EditLink baseUrl={baseUrl} link={link as ILinks} />
       </div>
     </div>
   );

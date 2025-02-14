@@ -19,7 +19,7 @@ export async function GET() {
 // ✅ POST: Create a new short link with a random ID
 export async function POST(req: Request) {
   try {
-    const { destination, createdBy } = await req.json();
+    const { destination, createdBy, title } = await req.json();
 
     // ✅ Ensure required fields are provided
     if (!destination || !createdBy) {
@@ -41,10 +41,10 @@ export async function POST(req: Request) {
         createdBy,
         locked: false,
         createdAt: new Date(),
+        title,
       },
     });
 
-   
     // ✅ Return the generated short URL
     return NextResponse.json({ newLink });
   } catch (error) {

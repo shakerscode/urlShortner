@@ -57,11 +57,7 @@ export default function DashboardLayout({
       <div className="flex-1 flex flex-col ml-64">
         {/* Fixed Header */}
         <header className="bg-white shadow flex justify-between items-center px-6 py-4 fixed top-0 left-64 right-0 z-10">
-          <input
-            type="text"
-            placeholder="Search..."
-            className="border rounded-lg px-4 py-2 w-1/3 focus:outline-none focus:ring-2 focus:ring-blue"
-          />
+          <div></div>
           <div className="flex items-center gap-4">
             <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center font-semibold">
               S
