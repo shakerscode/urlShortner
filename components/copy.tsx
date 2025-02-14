@@ -6,7 +6,7 @@ import toast from "react-hot-toast"; // ✅ Import Toast
 
 function CopyBtn({ url }: { url: string }) {
   const handleCopy = () => {
-    const textToCopy = `${window.location.origin}/go/${url}`;
+    const textToCopy = `${window.location.origin}/${url}`;
     navigator.clipboard.writeText(textToCopy)
       .then(() => {
         toast.success("Link copied to clipboard!"); // ✅ Show success toast
@@ -21,7 +21,7 @@ function CopyBtn({ url }: { url: string }) {
       onClick={handleCopy}
       className="p-2 rounded bg-gray-200 hover:bg-gray-300"
     >
-      <Copy size={18} />
+      <Copy size={14} />
     </button>
   );
 }

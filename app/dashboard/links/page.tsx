@@ -1,4 +1,4 @@
-import LinksPage from "@/components/LinksPage";
+import LinksPage from "@/components/links/LinksPage";
 import React from "react";
 
 function LinksPageMain() {
