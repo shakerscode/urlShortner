@@ -66,7 +66,7 @@ function Header() {
         </div>
       </div>
       <div className="bg-blue h-[1150px] md:h-[850px] shadow-xl mt-10">
-        <h2 className="pt-28 text-center text-5xl font-bold text-white">
+        <h2 className="pt-28 text-center max-w-[70%] mx-auto text-5xl font-bold text-white">
           The Bottlenecks GoLinks: Build stronger digital connections
         </h2>
         <p className="mt-4 text-center w-[80%] mb-9 mx-auto text-xl text-white">
