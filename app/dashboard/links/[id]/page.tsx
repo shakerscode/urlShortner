@@ -5,17 +5,17 @@ import { Pencil, Calendar, Tag } from "lucide-react";
 import { headers } from "next/headers";
 import CopyBtn from "@/components/copy";
 
-export default async function LinkDetailsPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+type tParams = Promise<{ id: string }>;
+export default async function LinkDetailsPage({ params }: { params: tParams }) {
   const host = (await headers()).get("host");
   const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
   const baseUrl = `${protocol}://${host}`;
 
+  // Get the short URL from params
+  const { id } = await params;
+
   const link = await db.shortLink.findUnique({
-    where: { id: params.id },
+    where: { id },
   });
 
   if (!link) return notFound();

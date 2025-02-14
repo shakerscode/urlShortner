@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
 import { notFound } from "next/navigation";
 import db from "@/lib/db";
-import { ILinks } from "@/types/links";
+
 import { headers } from "next/headers";
 import EditLink from "@/components/editlinks";
 import Link from "next/link";
+import { ILinks } from "@/types/links";
 
 type tParams = Promise<{ id: string }>;
 
@@ -17,8 +16,7 @@ export default async function EditLinkPage({ params }: { params: tParams }) {
   // Get the short URL from params
   const { id } = await params;
 
-  //@ts-expect-error
-  const link: ILinks = await db.shortLink.findUnique({
+  const link = await db.shortLink.findUnique({
     where: { id },
   });
 
@@ -37,7 +35,7 @@ export default async function EditLinkPage({ params }: { params: tParams }) {
       </Link>
       <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow mt-10">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Edit Link</h2>
-        <EditLink baseUrl={baseUrl} link={link} id={id} />
+        <EditLink baseUrl={baseUrl} link={link as ILinks} id={id} />
       </div>
     </div>
   );
