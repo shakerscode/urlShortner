@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Trash } from "lucide-react";
 import toast from "react-hot-toast"; 
 import { useRouter } from "next/navigation";
+import Spinner from "../spinner";
 
 export default function DeleteLink({ id }: { id: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -66,7 +67,7 @@ export default function DeleteLink({ id }: { id: string }) {
                 onClick={handleDelete}
                 disabled={isDeleting}
               >
-                {isDeleting ? "Deleting..." : "Delete"}
+                {isDeleting ?  <Spinner/> : "Delete"}
               </button>
             </div>
           </div>
