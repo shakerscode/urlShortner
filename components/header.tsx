@@ -4,11 +4,15 @@ import React, { useEffect, useState } from "react";
 import LinkShortener from "./ShortBox";
 import LinkLogo from "./icons/linklogo";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { IUser } from "@/types/user";
+import LogoutButton from "./logoutbtn";
 
-function Header() {
+function Header({ user }: { user: IUser }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
 
+  // UseEffect to handle smooth header transition
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -22,6 +26,7 @@ function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // An handler that prevent users not to go any other section, determine to go only home page top part. This is a minor issue that occurs sometime when to try to come home page it navigate use to the middle of the home page.
   const handleHomeClick = () => {
     if (window.location.pathname === "/") {
       window.scrollTo({ top: 0, behavior: "smooth" }); // ✅ Scroll smoothly
@@ -38,6 +43,7 @@ function Header() {
         } fixed top-0 left-0 w-full py-3 z-50 transition-all duration-300`}
       >
         <div className="max-w-[1064px] mx-auto flex items-center justify-between px-4 md:px-0">
+          {/* Logo Section - We can add image here later if we want  */}
           <h2
             onClick={handleHomeClick}
             className={`cursor-pointer text-xl md:text-3xl font-bold ${
@@ -47,24 +53,41 @@ function Header() {
             <LinkLogo size={35} /> GoLink
           </h2>
 
-          <div className="flex items-center justify-start gap-2.5">
-            <button
-              className={`text-md md:text-lg font-semibold hover:bg-gray-700 px-4 py-1 rounded-lg border-[2px] border-blue ${
-                isScrolled ? "text-white bg-blue" : "text-white"
-              } `}
-            >
-              Log in
-            </button>
-
-            <button
-              onClick={() => router.push("/dashboard")}
-              className={`text-md md:text-lg font-semibold text-colorDark bg-white px-4 py-1 rounded-lg hover:bg-sky transition-all ease-in-out duration-300 border-[2px] border-blue`}
-            >
-              Dashboard
-            </button>
-          </div>
+          {/* Nav action section  */}
+          <nav className="flex items-center gap-2">
+            {user ? (
+              // ✅ Show Dashboard and Logout if user is logged in
+              <>
+                <Link
+                  href="/dashboard"
+                  className="bg-blue text-white px-4 py-2 rounded-lg hover:bg-gray-600 text-base font-semibold transition-all ease-in-out duration-300"
+                >
+                  Dashboard
+                </Link>
+                <LogoutButton />
+              </>
+            ) : (
+              // ✅ Show Login and Register if user is not logged in
+              <>
+                <Link
+                  href="/auth/login"
+                  className="bg-blue text-white px-4 py-2 rounded-lg hover:bg-gray-600 text-base font-semibold transition-all ease-in-out duration-300"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/auth/register"
+                  className="text-blue bg-white px-4 py-2 rounded-lg hover:bg-blue200 font-semibold text-base transition-all ease-in-out duration-300"
+                >
+                  Register
+                </Link>
+              </>
+            )}
+          </nav>
         </div>
       </div>
+
+      {/* Header hero part - For the background accurately set in header and hero section  */}
       <div className="bg-blue h-[1150px] md:h-[900px] shadow-xl mt-10">
         <h2 className="pt-28 text-center max-w-[70%] mx-auto text-5xl font-bold text-white">
           The Bottlenecks GoLinks: Build stronger digital connections
@@ -74,7 +97,7 @@ function Header() {
           information
         </p>
 
-        <LinkShortener />
+        <LinkShortener user={user} />
       </div>
     </header>
   );

@@ -5,17 +5,24 @@ import { headers } from "next/headers";
 import Link from "next/link";
 import { shortenLink } from "@/utils/utils";
 import DeleteLink from "./deletelink";
+import { getServerSession } from "next-auth"; 
+import { authOptions } from "@/lib/auth";
 
 export default async function LinksPage() {
+  const session = await getServerSession(authOptions);
+
+  // ✅ Define base URL
   const host = (await headers()).get("host");
   const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
   const baseUrl = `${protocol}://${host}`;
 
+  // ✅ Fetch only links created by the authenticated user
   const links = await db.shortLink.findMany({
+    where: { createdBy: session?.user?.id }, // Fetch only links belonging to the logged-in user
     orderBy: { createdAt: "desc" },
   });
-  const empty = links?.length === 0;
 
+  const empty = links?.length === 0;
   return (
     <div className="w-full rounded-lg p-6">
       <h2 className="text-2xl font-bold text-gray-800">Go Links</h2>

@@ -43,10 +43,10 @@ function EditLink({ baseUrl, link }: IComponentProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-
+  
     try {
       const response = await fetch("/api/go/update", {
-        method: "POST",
+        method: "PATCH", // ✅ Change to PATCH
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: link.id,
@@ -56,25 +56,22 @@ function EditLink({ baseUrl, link }: IComponentProps) {
           tags,
         }),
       });
-
+  
       const data = await response.json();
-
+  
       if (!response.ok) {
         throw new Error(data.error || "Failed to update link.");
       }
-
+  
       toast.success("Link updated successfully!");
-      router.push("/dashboard/links"); // Redirect after success
+      router.push("/dashboard/links");
     } catch (err) {
-      if (err instanceof Error) {
-        toast.error(err.message || "Something went wrong.");
-      } else {
-        toast.error("Something went wrong.");
-      }
+      toast.error(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
       setIsLoading(false);
     }
   };
+  
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">

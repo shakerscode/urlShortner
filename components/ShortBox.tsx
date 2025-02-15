@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -6,51 +5,48 @@ import Link from "./icons/link";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Spinner from "./spinner";
+import { IUser } from "@/types/user";
+import { signIn } from "next-auth/react";
 
-export default function LinkShortener() {
+export default function LinkShortener({ user }: { user: IUser | undefined }) {
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");
   const [shortenCode, setShortenCode] = useState("");
   const [origin, setOrigin] = useState("");
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-
-   // ✅ Get `window.location.origin` only on the client
-   useEffect(() => {
+  // ✅ Get `window.location.origin` only on the client
+  useEffect(() => {
     if (typeof window !== "undefined") {
       setOrigin(window.location.origin);
     }
   }, []);
 
-  // ✅ Function to extract domain name from URL
-  const getDomainName = (url: string) => {
-    try {
-      const domain = new URL(url).hostname;
-      return domain.replace("www.", ""); // Remove 'www.' for cleaner title
-    } catch (err) {
-      return "Untitled"; // Fallback if URL parsing fails
+  // ✅ Restore link data if available (after login)
+  useEffect(() => {
+    const savedLink = sessionStorage.getItem("pendingLink");
+    if (savedLink && user) {
+      const { url, title, shortenCode } = JSON.parse(savedLink);
+      sessionStorage.removeItem("pendingLink"); // Clear after use
+      submitLink(url, title, shortenCode);
     }
-  };
+  }, [user]); // Runs when session updates (after login)
 
   // ✅ Function to validate URL
   const isValidUrl = (string: string) => {
     try {
       new URL(string);
       return true;
-    } catch (_) {
+    } catch {
       return false;
     }
   };
 
   // ✅ Function to submit the URL and generate a short link
   const handleSubmit = async () => {
-    if (!url.trim()) {
-      toast.error("Please enter a valid URL.");
-      return;
-    }
-    if (!shortenCode) {
-      toast.error("Please enter a shorten code.");
+    if (!url.trim() || !shortenCode.trim()) {
+      toast.error("Please fill in both fields.");
       return;
     }
 
@@ -59,6 +55,27 @@ export default function LinkShortener() {
       return;
     }
 
+    // ✅ If user is not logged in, store data and redirect to login
+    if (!user && !user) {
+      sessionStorage.setItem(
+        "pendingLink",
+        JSON.stringify({ url, title, shortenCode })
+      );
+      toast.error("You need to log in to shorten links.");
+      await signIn(undefined, { callbackUrl: window.location.href });
+      return;
+    }
+
+    // ✅ If user is authenticated, submit link
+    submitLink(url, title, shortenCode);
+  };
+
+  // ✅ Function to create the short link
+  const submitLink = async (
+    destination: string,
+    linkTitle: string,
+    code: string
+  ) => {
     setLoading(true);
 
     try {
@@ -66,17 +83,24 @@ export default function LinkShortener() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          destination: url,
-          createdBy: "guest",
-          title: title.trim() || getDomainName(url),
-          shortUrl: shortenCode,
+          destination,
+          createdBy: user?.id,
+          title:
+            linkTitle.trim() ||
+            new URL(destination).hostname.replace("www.", ""),
+          shortUrl: code,
         }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to shorten the link.");
+        if (data.error.includes("shortUrl already exists")) {
+          toast.error("This short URL is already taken. Try another one.");
+        } else {
+          toast.error(data.error || "Failed to shorten the link.");
+        }
+        return;
       }
 
       toast.success("Short link created successfully! 🎉");
@@ -97,7 +121,7 @@ export default function LinkShortener() {
   };
 
   return (
-    <div className="flex flex-col items-center bg-background-blue  px-4">
+    <div className="flex flex-col items-center bg-background-blue px-4">
       {/* Tab Selection */}
       <div className="flex bg-white rounded-full p-1 shadow-md">
         <button className="flex items-center gap-2 px-5 py-2 text-lg font-semibold rounded-full transition-all ease-in-out duration-300 bg-blue text-white">
@@ -122,6 +146,7 @@ export default function LinkShortener() {
             value={url}
             onChange={(e) => setUrl(e.target.value)}
           />
+
           <div className="mt-4">
             {/* Short key Input */}
             <label className="text-sm font-semibold text-color-dark">
@@ -163,7 +188,7 @@ export default function LinkShortener() {
           <button
             disabled={loading}
             onClick={handleSubmit}
-            className="w-full mt-4 bg-blue text-white py-3 rounded-lg text-lg font-semibold hover:bg-opacity-90 transition"
+            className="w-full mt-4 bg-blue text-white py-3 rounded-lg text-base font-semibold hover:bg-opacity-90 transition"
           >
             {loading ? <Spinner /> : "Generate Url →"}
           </button>
