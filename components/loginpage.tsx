@@ -1,14 +1,23 @@
-"use client";
+"use client"; // ✅ Make this a Client Component
 
 import { signIn } from "next-auth/react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import Image from "next/image";
 import Spinner from "@/components/spinner";
 
 export default function LoginPage() {
+  return (
+    <Suspense fallback={<Spinner />}> 
+      <LoginContent />
+    </Suspense>
+  );
+}
+
+// ✅ Move the main logic inside a separate component wrapped in Suspense
+function LoginContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
