@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
+import Spinner from "../spinner";
 
 interface IComponentProps {
   baseUrl: string;
@@ -154,7 +155,7 @@ function EditLink({ baseUrl, link }: IComponentProps) {
               : "bg-gray-300 text-gray-500 cursor-not-allowed"
           }`}
         >
-          {isLoading ? "Saving..." : "Save"}
+          {isLoading ? <Spinner /> : "Save"}
         </button>
       </div>
     </form>

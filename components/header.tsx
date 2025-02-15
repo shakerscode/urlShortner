@@ -57,15 +57,15 @@ function Header() {
             </button>
 
             <button
-              onClick={() => router.push("/dashboard/links")}
+              onClick={() => router.push("/dashboard")}
               className={`text-md md:text-lg font-semibold text-colorDark bg-white px-4 py-1 rounded-lg hover:bg-sky transition-all ease-in-out duration-300 border-[2px] border-blue`}
             >
-              All Links
+              Dashboard
             </button>
           </div>
         </div>
       </div>
-      <div className="bg-blue h-[1150px] md:h-[850px] shadow-xl mt-10">
+      <div className="bg-blue h-[1150px] md:h-[900px] shadow-xl mt-10">
         <h2 className="pt-28 text-center max-w-[70%] mx-auto text-5xl font-bold text-white">
           The Bottlenecks GoLinks: Build stronger digital connections
         </h2>

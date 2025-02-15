@@ -16,8 +16,6 @@ export default async function LinksPage() {
   });
   const empty = links?.length === 0;
 
-  console.log(links)
-
   return (
     <div className="w-full rounded-lg p-6">
       <h2 className="text-2xl font-bold text-gray-800">Go Links</h2>
@@ -45,10 +43,11 @@ export default async function LinksPage() {
           <div className="   flex flex-col gap-2 justify-center items-center h-[400px] max-w-4xl mx-auto rounded-xl text-gray-400">
             <CircleHelp size={100} />
             <div className="flex items-center gap-1 text-lg">
-              <p className="text-gray-600">No results found!</p> 
+              <p className="text-gray-600">No results found!</p>
               <Link href={"/dashboard/create"}>
-              
-                <span className="text-blue font-medium hover:underline">Create Link</span>
+                <span className="text-blue font-medium hover:underline">
+                  Create Link
+                </span>
               </Link>
             </div>
           </div>
