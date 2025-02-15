@@ -1,4 +1,4 @@
-"use client"; // ✅ Make this a Client Component
+"use client";  
 
 import { signIn } from "next-auth/react";
 import { useSearchParams, useRouter } from "next/navigation";
