@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css"; 
-import { Toaster } from "react-hot-toast";
+import "./globals.css";
+import { Toaster } from "react-hot-toast"; 
+import SessionProviderWrapper from "@/components/SessionProviderWrapper";
 
 // Import Poppins fonts
 const poppins = localFont({
@@ -40,10 +41,12 @@ export default function RootLayout({
 
       <head></head>
       <body className={`${poppins.variable} antialiased`}>
-        {/* <Header /> */}
-        <Toaster position="top-center" reverseOrder={false} />
-        <main>{children}</main>
-        {/* <Footer /> */}
+        <SessionProviderWrapper>
+          
+          {/* ✅ Wrap only the client-specific parts */}
+          <Toaster position="top-center" reverseOrder={false} />
+          <main>{children}</main>
+        </SessionProviderWrapper>
       </body>
     </html>
   );

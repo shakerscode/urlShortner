@@ -28,6 +28,7 @@ export async function POST(req: Request) {
       );
     }
 
+    console.log(createdBy)
     // Ensure shortUrl is unique (if user provides one)
     if (shortUrl) {
       const existingLink = await db.shortLink.findUnique({

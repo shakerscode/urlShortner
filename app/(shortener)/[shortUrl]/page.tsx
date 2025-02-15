@@ -1,4 +1,35 @@
-import { redirect } from "next/navigation";
+// import { notFound, redirect } from "next/navigation";
+// import db from "@/lib/db";
+
+// interface PageProps {
+//   params: { shortUrl: string };
+// }
+
+// export default async function ShortUrlRedirectPage({ params }: PageProps) {
+//   if (!params || !params.shortUrl) {
+//     return notFound();
+//   }
+//   const { shortUrl } = await params; // ✅ Ensure correct type
+
+//   // ✅ Exclude reserved routes
+//   const RESERVED_ROUTES = ["auth", "dashboard", "api"];
+//   if (RESERVED_ROUTES.includes(shortUrl)) {
+//     return notFound();
+//   }
+
+//   // ✅ Fetch the destination URL from the database
+//   const link = await db.shortLink.findUnique({
+//     where: { shortUrl },
+//   });
+
+//   if (!link) {
+//     return notFound(); // Show 404 if short link is not found
+//   }
+
+//   redirect(link.destination);
+// }
+
+import { notFound, redirect } from "next/navigation";
 import db from "@/lib/db";
 
 type tParams = Promise<{ shortUrl: string }>;
@@ -7,6 +38,11 @@ type tParams = Promise<{ shortUrl: string }>;
 export default async function RedirectPage({ params }: { params: tParams }) {
   // Get the short URL from params
   const { shortUrl } = await params;
+  // ✅ Exclude reserved routes
+  const RESERVED_ROUTES = ["auth", "dashboard", "api"];
+  if (RESERVED_ROUTES.includes(shortUrl)) {
+    return notFound();
+  }
 
   // Find the original URL in the database
   const link = await db.shortLink.findUnique({
