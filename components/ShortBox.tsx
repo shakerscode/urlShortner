@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "./icons/link";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -11,8 +11,17 @@ export default function LinkShortener() {
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");
   const [shortenCode, setShortenCode] = useState("");
+  const [origin, setOrigin] = useState("");
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+
+
+   // ✅ Get `window.location.origin` only on the client
+   useEffect(() => {
+    if (typeof window !== "undefined") {
+      setOrigin(window.location.origin);
+    }
+  }, []);
 
   // ✅ Function to extract domain name from URL
   const getDomainName = (url: string) => {
@@ -81,7 +90,7 @@ export default function LinkShortener() {
       );
     } finally {
       setLoading(false);
-      setUrl(""); // Clear input after submission 
+      setUrl(""); // Clear input after submission
       setShortenCode("");
       setTitle("");
     }
@@ -122,7 +131,7 @@ export default function LinkShortener() {
               <input
                 type="text"
                 disabled
-                value={`${window.location.origin}/`}
+                value={`${origin}/`}
                 className="px-4 py-3 border rounded-lg bg-gray-100 text-gray-400 mt-1"
               />
               <input
@@ -156,7 +165,7 @@ export default function LinkShortener() {
             onClick={handleSubmit}
             className="w-full mt-4 bg-blue text-white py-3 rounded-lg text-lg font-semibold hover:bg-opacity-90 transition"
           >
-            {loading ?  <Spinner/> : "Generate Url →"}
+            {loading ? <Spinner /> : "Generate Url →"}
           </button>
         </div>
       </div>
