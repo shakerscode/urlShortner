@@ -27,7 +27,7 @@ model Account {
   userId            String @db.ObjectId
   type              String
   provider          String
-  providerAccountId String
+  providerAccountId String @unique   
   refresh_token     String?
   access_token      String?
   expires_at        Int?
@@ -37,7 +37,7 @@ model Account {
   session_state     String?
   user              User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([provider, providerAccountId])  // ✅ Ensures unique provider accounts
+  @@unique([provider, providerAccountId])  // ✅ Keep this too
 }
 
 model Session {

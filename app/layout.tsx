@@ -37,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <title>Monthly Stats</title>
+      <title>GoLink</title>
 
       <head></head>
       <body className={`${poppins.variable} antialiased`}>

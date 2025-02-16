@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 import db from "@/lib/db";
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(db), 
+  adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
   secret: process.env.NEXTAUTH_SECRET,
 
@@ -34,7 +34,10 @@ export const authOptions: NextAuthOptions = {
 
         if (!user.password) throw new Error("User has no password set");
 
-        const isValid = await bcrypt.compare(credentials.password, user.password);
+        const isValid = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
         if (!isValid) throw new Error("Invalid password");
 
         return { id: user.id, email: user.email, role: user.role };
