@@ -88,11 +88,11 @@ function Header({ user }: { user: IUser }) {
       </div>
 
       {/* Header hero part - For the background accurately set in header and hero section  */}
-      <div className="bg-blue h-[1150px] md:h-[900px] shadow-xl mt-10">
-        <h2 className="pt-28 text-center max-w-[70%] mx-auto text-5xl font-bold text-white">
+      <div className="bg-blue h-[950px] md:h-[900px] shadow-xl mt-6 md:mt-10">
+        <h2 className="pt-24 md:pt-28 text-center md:max-w-[70%] w-full px-2.5 mx-auto text-4xl md:text-5xl font-bold text-white">
           The Bottlenecks GoLinks: Build stronger digital connections
         </h2>
-        <p className="mt-4 text-center w-[80%] mb-9 mx-auto text-xl text-white">
+        <p className="mt-4 text-center w-[80%] mb-9 mx-auto text-md md:text-xl text-white">
           Use The Bottlenecks URL shortener to connect people to the right
           information
         </p>
