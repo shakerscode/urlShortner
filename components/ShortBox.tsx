@@ -134,15 +134,15 @@ export default function LinkShortener({ user }: { user: IUser | undefined }) {
       <div className="bg-white rounded-[36px] shadow p-6 mt-8 max-w-3xl w-full">
         <h2 className="text-3xl font-bold text-color-dark">Create your link</h2>
 
-        <div className="mt-6">
+        <div className="mt-3 md:mt-6">
           {/* Destination URL Input */}
           <label className="text-sm font-semibold text-color-dark">
-            Paste your long link here
+            Drop your link below
           </label>
           <input
             type="text"
             placeholder="https://example.com/my-long-url"
-            className="w-full mt-1 px-4 py-3 border rounded-lg bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue"
+            className="w-full mt-1 px-4 py-3 border rounded-lg sm:placeholder:text-sm bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
           />
@@ -157,12 +157,12 @@ export default function LinkShortener({ user }: { user: IUser | undefined }) {
                 type="text"
                 disabled
                 value={`${origin}/`}
-                className="px-4 py-3 border rounded-lg bg-gray-100 text-gray-400 mt-1"
+                className="px-4 py-3 border rounded-lg bg-gray-100 text-gray-400 mt-1 w-full sm:placeholder:text-sm"
               />
               <input
                 type="text"
-                placeholder="some-text"
-                className="w-full mt-1 px-4 py-3 border rounded-lg bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue"
+                placeholder="Your preferred url"
+                className="w-full mt-1 px-4 py-3 border rounded-lg bg-gray-100 sm:placeholder:text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue"
                 value={shortenCode}
                 onChange={(e) => setShortenCode(e.target.value)}
               />

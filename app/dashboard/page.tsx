@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useState } from "react";
-import { CheckCircle, ChevronRight, Link2, Link2Off } from "lucide-react";
-import Link from "next/link";
+import { useState } from "react";  
 export default function ConnectionsPlatform() {
   const [progress, setProgress] = useState(50); // Simulated progress
 
